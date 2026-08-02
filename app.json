@@ -1,0 +1,1293 @@
+{
+  "id": "ai-provider-network-directory-accuracy",
+  "title": "NetworkTruth Provider Directory",
+  "tagline": "Provider roster accuracy, FHIR Plan-Net conformance, network adequacy, and CMS attestation",
+  "industry": "Health Plan Network Operations",
+  "port": 4522,
+  "accent": "#2563eb",
+  "valueLabel": "Provider locations",
+  "value": "184K",
+  "workflows": [
+    {
+      "id": "roster-match",
+      "title": "Provider Roster Reconciliation",
+      "description": "Reconcile delegated group, credentialing, claims, contract, and public-directory provider records.",
+      "fields": [
+        {
+          "key": "providerNpi",
+          "label": "Provider NPI",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "groupTin",
+          "label": "Group TIN",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "sourceSystem",
+          "label": "Source System",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "conflictNotes",
+          "label": "Conflict Notes",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "states": [
+        "intake",
+        "analyzing",
+        "review",
+        "approved",
+        "closed"
+      ],
+      "examples": [
+        {
+          "id": "standard",
+          "label": "Fill Standard Case",
+          "values": {
+            "providerNpi": "1932184507",
+            "groupTin": "Group TIN STD-2026-104",
+            "sourceSystem": "Source System STD-2026-104",
+            "conflictNotes": "Complete: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        },
+        {
+          "id": "high-risk",
+          "label": "Fill High-Risk Case",
+          "values": {
+            "providerNpi": "1467598321",
+            "groupTin": "Group TIN RISK-2026-227",
+            "sourceSystem": "Source System RISK-2026-227",
+            "conflictNotes": "Critical exception: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        },
+        {
+          "id": "exception",
+          "label": "Fill Exception Case",
+          "values": {
+            "providerNpi": "1093847625",
+            "groupTin": "Group TIN EXC-2026-319",
+            "sourceSystem": "Source System EXC-2026-319",
+            "conflictNotes": "Reviewer follow-up: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        }
+      ],
+      "aiActions": [
+        {
+          "id": "assess",
+          "label": "Assess Risk & Value"
+        },
+        {
+          "id": "evidence",
+          "label": "Build Evidence Checklist"
+        },
+        {
+          "id": "plan",
+          "label": "Recommend Action Plan"
+        }
+      ]
+    },
+    {
+      "id": "location-verify",
+      "title": "Location & Phone Verification",
+      "description": "Verify practice address, phone, appointment availability, panel status, and accessibility.",
+      "fields": [
+        {
+          "key": "providerNpi",
+          "label": "Provider NPI",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "location",
+          "label": "Practice Location",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "phone",
+          "label": "Phone",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "verificationResult",
+          "label": "Verification Result",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "states": [
+        "intake",
+        "analyzing",
+        "review",
+        "approved",
+        "closed"
+      ],
+      "examples": [
+        {
+          "id": "standard",
+          "label": "Fill Standard Case",
+          "values": {
+            "providerNpi": "1932184507",
+            "location": "Practice Location STD-2026-104",
+            "phone": "Phone STD-2026-104",
+            "verificationResult": "Complete: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        },
+        {
+          "id": "high-risk",
+          "label": "Fill High-Risk Case",
+          "values": {
+            "providerNpi": "1467598321",
+            "location": "Practice Location RISK-2026-227",
+            "phone": "Phone RISK-2026-227",
+            "verificationResult": "Critical exception: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        },
+        {
+          "id": "exception",
+          "label": "Fill Exception Case",
+          "values": {
+            "providerNpi": "1093847625",
+            "location": "Practice Location EXC-2026-319",
+            "phone": "Phone EXC-2026-319",
+            "verificationResult": "Reviewer follow-up: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        }
+      ],
+      "aiActions": [
+        {
+          "id": "assess",
+          "label": "Assess Risk & Value"
+        },
+        {
+          "id": "evidence",
+          "label": "Build Evidence Checklist"
+        },
+        {
+          "id": "plan",
+          "label": "Recommend Action Plan"
+        }
+      ]
+    },
+    {
+      "id": "fhir-plan-net",
+      "title": "FHIR Plan-Net Validation",
+      "description": "Validate Organization, PractitionerRole, HealthcareService, Location, Endpoint, and network references.",
+      "fields": [
+        {
+          "key": "resourceType",
+          "label": "FHIR Resource Type",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "resourceId",
+          "label": "Resource ID",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "profileVersion",
+          "label": "Plan-Net Version",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "validationErrors",
+          "label": "Validation Errors",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "states": [
+        "intake",
+        "analyzing",
+        "review",
+        "approved",
+        "closed"
+      ],
+      "examples": [
+        {
+          "id": "standard",
+          "label": "Fill Standard Case",
+          "values": {
+            "resourceType": "FHIR Resource Type STD-2026-104",
+            "resourceId": "Resource ID STD-2026-104",
+            "profileVersion": "Plan-Net Version STD-2026-104",
+            "validationErrors": "Complete: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        },
+        {
+          "id": "high-risk",
+          "label": "Fill High-Risk Case",
+          "values": {
+            "resourceType": "FHIR Resource Type RISK-2026-227",
+            "resourceId": "Resource ID RISK-2026-227",
+            "profileVersion": "Plan-Net Version RISK-2026-227",
+            "validationErrors": "Critical exception: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        },
+        {
+          "id": "exception",
+          "label": "Fill Exception Case",
+          "values": {
+            "resourceType": "FHIR Resource Type EXC-2026-319",
+            "resourceId": "Resource ID EXC-2026-319",
+            "profileVersion": "Plan-Net Version EXC-2026-319",
+            "validationErrors": "Reviewer follow-up: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        }
+      ],
+      "aiActions": [
+        {
+          "id": "assess",
+          "label": "Assess Risk & Value"
+        },
+        {
+          "id": "evidence",
+          "label": "Build Evidence Checklist"
+        },
+        {
+          "id": "plan",
+          "label": "Recommend Action Plan"
+        }
+      ]
+    },
+    {
+      "id": "network-adequacy",
+      "title": "Network Adequacy Analysis",
+      "description": "Test time, distance, provider count, specialty, facility, and exception requirements by county.",
+      "fields": [
+        {
+          "key": "county",
+          "label": "County",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "specialty",
+          "label": "Specialty",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "requiredProviders",
+          "label": "Required Providers",
+          "type": "number",
+          "required": true
+        },
+        {
+          "key": "availableProviders",
+          "label": "Available Providers",
+          "type": "number",
+          "required": false
+        }
+      ],
+      "states": [
+        "intake",
+        "analyzing",
+        "review",
+        "approved",
+        "closed"
+      ],
+      "examples": [
+        {
+          "id": "standard",
+          "label": "Fill Standard Case",
+          "values": {
+            "county": "County STD-2026-104",
+            "specialty": "Specialty STD-2026-104",
+            "requiredProviders": 125,
+            "availableProviders": 125
+          }
+        },
+        {
+          "id": "high-risk",
+          "label": "Fill High-Risk Case",
+          "values": {
+            "county": "County RISK-2026-227",
+            "specialty": "Specialty RISK-2026-227",
+            "requiredProviders": 975,
+            "availableProviders": 975
+          }
+        },
+        {
+          "id": "exception",
+          "label": "Fill Exception Case",
+          "values": {
+            "county": "County EXC-2026-319",
+            "specialty": "Specialty EXC-2026-319",
+            "requiredProviders": 41,
+            "availableProviders": 41
+          }
+        }
+      ],
+      "aiActions": [
+        {
+          "id": "assess",
+          "label": "Assess Risk & Value"
+        },
+        {
+          "id": "evidence",
+          "label": "Build Evidence Checklist"
+        },
+        {
+          "id": "plan",
+          "label": "Recommend Action Plan"
+        }
+      ]
+    },
+    {
+      "id": "attestation",
+      "title": "Directory Attestation",
+      "description": "Prepare contract-level completeness, quality checks, exception evidence, and authorized attestation.",
+      "fields": [
+        {
+          "key": "contractId",
+          "label": "MA Contract ID",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "attestationDate",
+          "label": "Attestation Date",
+          "type": "date",
+          "required": true
+        },
+        {
+          "key": "errorRate",
+          "label": "Directory Error Rate",
+          "type": "number",
+          "required": true
+        },
+        {
+          "key": "attestationNotes",
+          "label": "Attestation Notes",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "states": [
+        "intake",
+        "analyzing",
+        "review",
+        "approved",
+        "closed"
+      ],
+      "examples": [
+        {
+          "id": "standard",
+          "label": "Fill Standard Case",
+          "values": {
+            "contractId": "H1234",
+            "attestationDate": "2026-09-08",
+            "errorRate": 88,
+            "attestationNotes": "Complete: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        },
+        {
+          "id": "high-risk",
+          "label": "Fill High-Risk Case",
+          "values": {
+            "contractId": "H5678",
+            "attestationDate": "2026-08-19",
+            "errorRate": 42,
+            "attestationNotes": "Critical exception: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        },
+        {
+          "id": "exception",
+          "label": "Fill Exception Case",
+          "values": {
+            "contractId": "H9012",
+            "attestationDate": "2026-08-10",
+            "errorRate": 67,
+            "attestationNotes": "Reviewer follow-up: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        }
+      ],
+      "aiActions": [
+        {
+          "id": "assess",
+          "label": "Assess Risk & Value"
+        },
+        {
+          "id": "evidence",
+          "label": "Build Evidence Checklist"
+        },
+        {
+          "id": "plan",
+          "label": "Recommend Action Plan"
+        }
+      ]
+    },
+    {
+      "id": "delegated-entity",
+      "title": "Delegated Roster Governance",
+      "description": "Track delegated entity submissions, timeliness, rejection, correction, and SLA performance.",
+      "fields": [
+        {
+          "key": "delegate",
+          "label": "Delegated Entity",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "submissionDate",
+          "label": "Submission Date",
+          "type": "date",
+          "required": true
+        },
+        {
+          "key": "recordCount",
+          "label": "Record Count",
+          "type": "number",
+          "required": true
+        },
+        {
+          "key": "rejectionReason",
+          "label": "Rejection Reason",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "states": [
+        "intake",
+        "analyzing",
+        "review",
+        "approved",
+        "closed"
+      ],
+      "examples": [
+        {
+          "id": "standard",
+          "label": "Fill Standard Case",
+          "values": {
+            "delegate": "Delegated Entity STD-2026-104",
+            "submissionDate": "2026-09-08",
+            "recordCount": 125,
+            "rejectionReason": "Complete: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        },
+        {
+          "id": "high-risk",
+          "label": "Fill High-Risk Case",
+          "values": {
+            "delegate": "Delegated Entity RISK-2026-227",
+            "submissionDate": "2026-08-19",
+            "recordCount": 975,
+            "rejectionReason": "Critical exception: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        },
+        {
+          "id": "exception",
+          "label": "Fill Exception Case",
+          "values": {
+            "delegate": "Delegated Entity EXC-2026-319",
+            "submissionDate": "2026-08-10",
+            "recordCount": 41,
+            "rejectionReason": "Reviewer follow-up: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        }
+      ],
+      "aiActions": [
+        {
+          "id": "assess",
+          "label": "Assess Risk & Value"
+        },
+        {
+          "id": "evidence",
+          "label": "Build Evidence Checklist"
+        },
+        {
+          "id": "plan",
+          "label": "Recommend Action Plan"
+        }
+      ]
+    },
+    {
+      "id": "provider-outreach",
+      "title": "Provider Outreach Campaign",
+      "description": "Manage validation requests, channel, response, evidence, escalation, and closure.",
+      "fields": [
+        {
+          "key": "providerNpi",
+          "label": "Provider NPI",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "outreachChannel",
+          "label": "Outreach Channel",
+          "type": "select",
+          "required": true,
+          "options": [
+            "Portal",
+            "Email",
+            "Phone",
+            "Roster"
+          ]
+        },
+        {
+          "key": "responseDue",
+          "label": "Response Due",
+          "type": "date",
+          "required": true
+        },
+        {
+          "key": "outreachNotes",
+          "label": "Outreach Notes",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "states": [
+        "intake",
+        "analyzing",
+        "review",
+        "approved",
+        "closed"
+      ],
+      "examples": [
+        {
+          "id": "standard",
+          "label": "Fill Standard Case",
+          "values": {
+            "providerNpi": "1932184507",
+            "outreachChannel": "Email",
+            "responseDue": "2026-09-08",
+            "outreachNotes": "Complete: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        },
+        {
+          "id": "high-risk",
+          "label": "Fill High-Risk Case",
+          "values": {
+            "providerNpi": "1467598321",
+            "outreachChannel": "Email",
+            "responseDue": "2026-08-19",
+            "outreachNotes": "Critical exception: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        },
+        {
+          "id": "exception",
+          "label": "Fill Exception Case",
+          "values": {
+            "providerNpi": "1093847625",
+            "outreachChannel": "Email",
+            "responseDue": "2026-08-10",
+            "outreachNotes": "Reviewer follow-up: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        }
+      ],
+      "aiActions": [
+        {
+          "id": "assess",
+          "label": "Assess Risk & Value"
+        },
+        {
+          "id": "evidence",
+          "label": "Build Evidence Checklist"
+        },
+        {
+          "id": "plan",
+          "label": "Recommend Action Plan"
+        }
+      ]
+    },
+    {
+      "id": "mpf-submission",
+      "title": "Medicare Plan Finder Submission",
+      "description": "Control CMS extract, data quality, testing, preview, reconciliation, and submission receipt.",
+      "fields": [
+        {
+          "key": "contractId",
+          "label": "MA Contract ID",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "extractVersion",
+          "label": "Extract Version",
+          "type": "text",
+          "required": true
+        },
+        {
+          "key": "providerCount",
+          "label": "Provider Count",
+          "type": "number",
+          "required": true
+        },
+        {
+          "key": "submissionNotes",
+          "label": "Submission Notes",
+          "type": "textarea",
+          "required": false
+        }
+      ],
+      "states": [
+        "intake",
+        "analyzing",
+        "review",
+        "approved",
+        "closed"
+      ],
+      "examples": [
+        {
+          "id": "standard",
+          "label": "Fill Standard Case",
+          "values": {
+            "contractId": "H1234",
+            "extractVersion": "Extract Version STD-2026-104",
+            "providerCount": 125,
+            "submissionNotes": "Complete: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        },
+        {
+          "id": "high-risk",
+          "label": "Fill High-Risk Case",
+          "values": {
+            "contractId": "H5678",
+            "extractVersion": "Extract Version RISK-2026-227",
+            "providerCount": 975,
+            "submissionNotes": "Critical exception: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        },
+        {
+          "id": "exception",
+          "label": "Fill Exception Case",
+          "values": {
+            "contractId": "H9012",
+            "extractVersion": "Extract Version EXC-2026-319",
+            "providerCount": 41,
+            "submissionNotes": "Reviewer follow-up: source evidence, financial impact, control context, and documented reviewer rationale are available for analysis."
+          }
+        }
+      ],
+      "aiActions": [
+        {
+          "id": "assess",
+          "label": "Assess Risk & Value"
+        },
+        {
+          "id": "evidence",
+          "label": "Build Evidence Checklist"
+        },
+        {
+          "id": "plan",
+          "label": "Recommend Action Plan"
+        }
+      ]
+    }
+  ],
+  "operations": [
+    {
+      "id": "roster-match",
+      "title": "Provider Roster Reconciliation Register",
+      "description": "Operational records, ownership, status, financial value, and evidence for provider roster reconciliation.",
+      "table": "op_roster_match",
+      "columns": [
+        {
+          "key": "providerNpi",
+          "label": "Provider NPI",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_providerNpi"
+        },
+        {
+          "key": "groupTin",
+          "label": "Group TIN",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_groupTin"
+        },
+        {
+          "key": "sourceSystem",
+          "label": "Source System",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_sourceSystem"
+        },
+        {
+          "key": "conflictNotes",
+          "label": "Conflict Notes",
+          "type": "textarea",
+          "required": false,
+          "dbKey": "data_conflictNotes"
+        }
+      ]
+    },
+    {
+      "id": "location-verify",
+      "title": "Location & Phone Verification Register",
+      "description": "Operational records, ownership, status, financial value, and evidence for location & phone verification.",
+      "table": "op_location_verify",
+      "columns": [
+        {
+          "key": "providerNpi",
+          "label": "Provider NPI",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_providerNpi"
+        },
+        {
+          "key": "location",
+          "label": "Practice Location",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_location"
+        },
+        {
+          "key": "phone",
+          "label": "Phone",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_phone"
+        },
+        {
+          "key": "verificationResult",
+          "label": "Verification Result",
+          "type": "textarea",
+          "required": false,
+          "dbKey": "data_verificationResult"
+        }
+      ]
+    },
+    {
+      "id": "fhir-plan-net",
+      "title": "FHIR Plan-Net Validation Register",
+      "description": "Operational records, ownership, status, financial value, and evidence for fhir plan-net validation.",
+      "table": "op_fhir_plan_net",
+      "columns": [
+        {
+          "key": "resourceType",
+          "label": "FHIR Resource Type",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_resourceType"
+        },
+        {
+          "key": "resourceId",
+          "label": "Resource ID",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_resourceId"
+        },
+        {
+          "key": "profileVersion",
+          "label": "Plan-Net Version",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_profileVersion"
+        },
+        {
+          "key": "validationErrors",
+          "label": "Validation Errors",
+          "type": "textarea",
+          "required": false,
+          "dbKey": "data_validationErrors"
+        }
+      ]
+    },
+    {
+      "id": "network-adequacy",
+      "title": "Network Adequacy Analysis Register",
+      "description": "Operational records, ownership, status, financial value, and evidence for network adequacy analysis.",
+      "table": "op_network_adequacy",
+      "columns": [
+        {
+          "key": "county",
+          "label": "County",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_county"
+        },
+        {
+          "key": "specialty",
+          "label": "Specialty",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_specialty"
+        },
+        {
+          "key": "requiredProviders",
+          "label": "Required Providers",
+          "type": "number",
+          "required": true,
+          "dbKey": "data_requiredProviders"
+        },
+        {
+          "key": "availableProviders",
+          "label": "Available Providers",
+          "type": "number",
+          "required": false,
+          "dbKey": "data_availableProviders"
+        }
+      ]
+    },
+    {
+      "id": "attestation",
+      "title": "Directory Attestation Register",
+      "description": "Operational records, ownership, status, financial value, and evidence for directory attestation.",
+      "table": "op_attestation",
+      "columns": [
+        {
+          "key": "contractId",
+          "label": "MA Contract ID",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_contractId"
+        },
+        {
+          "key": "attestationDate",
+          "label": "Attestation Date",
+          "type": "date",
+          "required": true,
+          "dbKey": "data_attestationDate"
+        },
+        {
+          "key": "errorRate",
+          "label": "Directory Error Rate",
+          "type": "number",
+          "required": true,
+          "dbKey": "data_errorRate"
+        },
+        {
+          "key": "attestationNotes",
+          "label": "Attestation Notes",
+          "type": "textarea",
+          "required": false,
+          "dbKey": "data_attestationNotes"
+        }
+      ]
+    },
+    {
+      "id": "delegated-entity",
+      "title": "Delegated Roster Governance Register",
+      "description": "Operational records, ownership, status, financial value, and evidence for delegated roster governance.",
+      "table": "op_delegated_entity",
+      "columns": [
+        {
+          "key": "delegate",
+          "label": "Delegated Entity",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_delegate"
+        },
+        {
+          "key": "submissionDate",
+          "label": "Submission Date",
+          "type": "date",
+          "required": true,
+          "dbKey": "data_submissionDate"
+        },
+        {
+          "key": "recordCount",
+          "label": "Record Count",
+          "type": "number",
+          "required": true,
+          "dbKey": "data_recordCount"
+        },
+        {
+          "key": "rejectionReason",
+          "label": "Rejection Reason",
+          "type": "textarea",
+          "required": false,
+          "dbKey": "data_rejectionReason"
+        }
+      ]
+    },
+    {
+      "id": "provider-outreach",
+      "title": "Provider Outreach Campaign Register",
+      "description": "Operational records, ownership, status, financial value, and evidence for provider outreach campaign.",
+      "table": "op_provider_outreach",
+      "columns": [
+        {
+          "key": "providerNpi",
+          "label": "Provider NPI",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_providerNpi"
+        },
+        {
+          "key": "outreachChannel",
+          "label": "Outreach Channel",
+          "type": "select",
+          "required": true,
+          "options": [
+            "Portal",
+            "Email",
+            "Phone",
+            "Roster"
+          ],
+          "dbKey": "data_outreachChannel"
+        },
+        {
+          "key": "responseDue",
+          "label": "Response Due",
+          "type": "date",
+          "required": true,
+          "dbKey": "data_responseDue"
+        },
+        {
+          "key": "outreachNotes",
+          "label": "Outreach Notes",
+          "type": "textarea",
+          "required": false,
+          "dbKey": "data_outreachNotes"
+        }
+      ]
+    },
+    {
+      "id": "mpf-submission",
+      "title": "Medicare Plan Finder Submission Register",
+      "description": "Operational records, ownership, status, financial value, and evidence for medicare plan finder submission.",
+      "table": "op_mpf_submission",
+      "columns": [
+        {
+          "key": "contractId",
+          "label": "MA Contract ID",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_contractId"
+        },
+        {
+          "key": "extractVersion",
+          "label": "Extract Version",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_extractVersion"
+        },
+        {
+          "key": "providerCount",
+          "label": "Provider Count",
+          "type": "number",
+          "required": true,
+          "dbKey": "data_providerCount"
+        },
+        {
+          "key": "submissionNotes",
+          "label": "Submission Notes",
+          "type": "textarea",
+          "required": false,
+          "dbKey": "data_submissionNotes"
+        }
+      ]
+    },
+    {
+      "id": "provider-master",
+      "title": "Provider Identity Master",
+      "description": "NPIs, names, specialties, credentials, groups, and identifiers.",
+      "table": "op_provider_master",
+      "columns": [
+        {
+          "key": "npi",
+          "label": "NPI",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_npi"
+        },
+        {
+          "key": "provider",
+          "label": "Provider",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_provider"
+        },
+        {
+          "key": "specialty",
+          "label": "Specialty",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_specialty"
+        },
+        {
+          "key": "groupTin",
+          "label": "Group TIN",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_groupTin"
+        }
+      ]
+    },
+    {
+      "id": "location-master",
+      "title": "Practice Location Master",
+      "description": "Addresses, phones, hours, accessibility, panels, and verification.",
+      "table": "op_location_master",
+      "columns": [
+        {
+          "key": "location",
+          "label": "Location",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_location"
+        },
+        {
+          "key": "phone",
+          "label": "Phone",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_phone"
+        },
+        {
+          "key": "acceptingPatients",
+          "label": "Accepting Patients",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_acceptingPatients"
+        },
+        {
+          "key": "verifiedDate",
+          "label": "Verified Date",
+          "type": "date",
+          "required": true,
+          "dbKey": "data_verifiedDate"
+        }
+      ]
+    },
+    {
+      "id": "network-contracts",
+      "title": "Network Contract Registry",
+      "description": "Plans, networks, provider participation, effective dates, and termination.",
+      "table": "op_network_contracts",
+      "columns": [
+        {
+          "key": "providerNpi",
+          "label": "Provider NPI",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_providerNpi"
+        },
+        {
+          "key": "plan",
+          "label": "Plan",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_plan"
+        },
+        {
+          "key": "network",
+          "label": "Network",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_network"
+        },
+        {
+          "key": "effectiveDate",
+          "label": "Effective Date",
+          "type": "date",
+          "required": true,
+          "dbKey": "data_effectiveDate"
+        }
+      ]
+    },
+    {
+      "id": "adequacy-standards",
+      "title": "Network Adequacy Standards",
+      "description": "County, specialty, time, distance, minimum counts, and exception rules.",
+      "table": "op_adequacy_standards",
+      "columns": [
+        {
+          "key": "county",
+          "label": "County",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_county"
+        },
+        {
+          "key": "specialty",
+          "label": "Specialty",
+          "type": "text",
+          "required": true,
+          "dbKey": "data_specialty"
+        },
+        {
+          "key": "timeMinutes",
+          "label": "Time Minutes",
+          "type": "number",
+          "required": true,
+          "dbKey": "data_timeMinutes"
+        },
+        {
+          "key": "distanceMiles",
+          "label": "Distance Miles",
+          "type": "number",
+          "required": true,
+          "dbKey": "data_distanceMiles"
+        }
+      ]
+    }
+  ],
+  "domainProduct": {
+    "home": "Provider Network Truth Center",
+    "context": "A payer operating system for provider identity, locations, delegated rosters, FHIR Plan-Net, network adequacy, and CMS submission accuracy.",
+    "features": [
+      {
+        "id": "provider-golden-record",
+        "title": "Provider Golden Record",
+        "description": "Resolve NPI, group, specialty, contract, claims, credentialing, and directory conflicts.",
+        "view": "reconciliation",
+        "modules": [
+          "roster-match",
+          "provider-master"
+        ],
+        "actions": [
+          {
+            "id": "approve-record",
+            "label": "Approve Golden Record",
+            "nextStatus": "Approved",
+            "auditDetail": "Approved reconciled provider identity record."
+          },
+          {
+            "id": "open-conflict",
+            "label": "Open Source Conflict",
+            "nextStatus": "Investigating",
+            "auditDetail": "Opened conflicting provider source-data case."
+          }
+        ]
+      },
+      {
+        "id": "location-verification",
+        "title": "Practice Location Verification",
+        "description": "Verify provider presence, address, phone, hours, panel status, and accessibility evidence.",
+        "view": "evidence",
+        "modules": [
+          "location-verify",
+          "location-master"
+        ],
+        "actions": [
+          {
+            "id": "verify-location",
+            "label": "Verify Provider Location",
+            "nextStatus": "Approved",
+            "auditDetail": "Verified provider location and access attributes."
+          },
+          {
+            "id": "suppress-location",
+            "label": "Suppress Inaccurate Location",
+            "nextStatus": "Review",
+            "auditDetail": "Suppressed inaccurate location pending correction."
+          }
+        ]
+      },
+      {
+        "id": "plan-net",
+        "title": "FHIR Plan-Net Conformance",
+        "description": "Validate public API resources, references, profiles, terminology, and network relationships.",
+        "view": "control",
+        "modules": [
+          "fhir-plan-net",
+          "network-contracts"
+        ],
+        "actions": [
+          {
+            "id": "publish-resource",
+            "label": "Approve FHIR Publication",
+            "nextStatus": "Approved",
+            "auditDetail": "Approved conformant Plan-Net resources for publication."
+          },
+          {
+            "id": "reject-resource",
+            "label": "Reject Invalid Resource",
+            "nextStatus": "Investigating",
+            "auditDetail": "Rejected invalid Plan-Net resource and references."
+          }
+        ]
+      },
+      {
+        "id": "adequacy",
+        "title": "Network Adequacy Command",
+        "description": "Monitor time-distance, minimum providers, specialties, facilities, counties, and exception requests.",
+        "view": "control",
+        "modules": [
+          "network-adequacy",
+          "adequacy-standards"
+        ],
+        "actions": [
+          {
+            "id": "clear-county",
+            "label": "Approve County Adequacy",
+            "nextStatus": "Approved",
+            "auditDetail": "Approved county and specialty network adequacy."
+          },
+          {
+            "id": "file-exception",
+            "label": "Prepare Adequacy Exception",
+            "nextStatus": "Review",
+            "auditDetail": "Prepared supported network adequacy exception request."
+          }
+        ]
+      },
+      {
+        "id": "cms-directory",
+        "title": "CMS Directory Submission",
+        "description": "Control delegated changes, API extract, quality checks, attestation, preview, and MPF receipts.",
+        "view": "deadline",
+        "modules": [
+          "mpf-submission",
+          "attestation"
+        ],
+        "actions": [
+          {
+            "id": "release-extract",
+            "label": "Release CMS Extract",
+            "nextStatus": "Review",
+            "auditDetail": "Released validated provider directory extract."
+          },
+          {
+            "id": "accept-receipt",
+            "label": "Accept CMS Receipt",
+            "nextStatus": "Approved",
+            "auditDetail": "Accepted CMS submission receipt and reconciliation."
+          }
+        ]
+      }
+    ]
+  },
+  "integrations": [
+    {
+      "id": "integration-1",
+      "name": "Credentialing platform",
+      "category": "Domain data source",
+      "mode": "Read-only demo connector"
+    },
+    {
+      "id": "integration-2",
+      "name": "FHIR Plan-Net API",
+      "category": "Domain data source",
+      "mode": "Read-only demo connector"
+    },
+    {
+      "id": "integration-3",
+      "name": "Claims warehouse",
+      "category": "Domain data source",
+      "mode": "Read-only demo connector"
+    },
+    {
+      "id": "integration-4",
+      "name": "Delegated roster exchange",
+      "category": "Domain data source",
+      "mode": "Read-only demo connector"
+    },
+    {
+      "id": "integration-5",
+      "name": "CMS Medicare Plan Finder",
+      "category": "Domain data source",
+      "mode": "Read-only demo connector"
+    }
+  ],
+  "featureCount": 40,
+  "seededRecords": 300,
+  "demoUsers": 3,
+  "apiPort": 5522,
+  "dbName": "profit_ai_provider_network_directory_accuracy"
+}
