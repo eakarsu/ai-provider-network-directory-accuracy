@@ -1,0 +1,212 @@
+// Generated schema — modeled after beautyhqio conventions.
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  name         String
+  passwordHash String
+  role         Role     @default(ANALYST)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+enum Role {
+  ADMIN
+  MANAGER
+  ANALYST
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actorId   String?
+  actorName String?
+  action    String
+  entity    String
+  entityId  String?
+  detail    String?
+  createdAt DateTime @default(now())
+}
+
+model Provider {
+  id        String   @id @default(cuid())
+  fullName String
+  npi String
+  specialty String
+  taxonomy String
+  status String
+  lastVerifiedAt DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  practiceLocations PracticeLocation[]
+  credentialRecords CredentialRecord[]
+  rosterFiles RosterFile[]
+  fhirValidations FhirValidation[]
+  adequacyMeasures AdequacyMeasure[]
+  outreachCampaigns OutreachCampaign[]
+  correctionRequests CorrectionRequest[]
+  directoryAttestations DirectoryAttestation[]
+  directorySnapshots DirectorySnapshot[]
+  planFinderSubmissions PlanFinderSubmission[]
+  networkContracts NetworkContract[]
+}
+
+model PracticeLocation {
+  id        String   @id @default(cuid())
+  name String
+  addressLine String
+  city String
+  state String
+  phone String
+  acceptingPatients Boolean
+  providerId String?
+  provider Provider? @relation(fields: [providerId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CredentialRecord {
+  id        String   @id @default(cuid())
+  kind String
+  issuer String
+  number String
+  status String
+  expiresAt DateTime?
+  verifiedAt DateTime?
+  providerId String?
+  provider Provider? @relation(fields: [providerId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model RosterFile {
+  id        String   @id @default(cuid())
+  delegate String
+  fileName String
+  fileRows Int
+  status String
+  receivedAt DateTime?
+  frequency String
+  providerId String?
+  provider Provider? @relation(fields: [providerId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FhirValidation {
+  id        String   @id @default(cuid())
+  resourceType String
+  profile String
+  result String
+  errorDetail String?
+  validatedAt DateTime?
+  endpoint String
+  providerId String?
+  provider Provider? @relation(fields: [providerId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AdequacyMeasure {
+  id        String   @id @default(cuid())
+  county String
+  specialty String
+  timeMinutes Float
+  distanceMiles Float
+  standard String
+  result String
+  providerId String?
+  provider Provider? @relation(fields: [providerId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model OutreachCampaign {
+  id        String   @id @default(cuid())
+  name String
+  channel String
+  targetCount Int
+  responded Int
+  status String
+  launchedAt DateTime?
+  providerId String?
+  provider Provider? @relation(fields: [providerId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CorrectionRequest {
+  id        String   @id @default(cuid())
+  field String
+  reportedValue String
+  currentValue String
+  source String
+  status String
+  createdOn DateTime?
+  providerId String?
+  provider Provider? @relation(fields: [providerId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DirectoryAttestation {
+  id        String   @id @default(cuid())
+  period String
+  attester String
+  scope String
+  status String
+  signedAt DateTime?
+  notes String?
+  providerId String?
+  provider Provider? @relation(fields: [providerId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model DirectorySnapshot {
+  id        String   @id @default(cuid())
+  snapshotDate String
+  listedRecords Int
+  accuracyIssues Int
+  status String
+  region String
+  providerId String?
+  provider Provider? @relation(fields: [providerId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model PlanFinderSubmission {
+  id        String   @id @default(cuid())
+  submissionId String
+  period String
+  status String
+  submittedAt DateTime?
+  cmsAck String?
+  recordsCount Int
+  providerId String?
+  provider Provider? @relation(fields: [providerId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model NetworkContract {
+  id        String   @id @default(cuid())
+  payer String
+  contractNumber String
+  effective String
+  expiresAt DateTime?
+  status String
+  networkTier String
+  providerId String?
+  provider Provider? @relation(fields: [providerId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
