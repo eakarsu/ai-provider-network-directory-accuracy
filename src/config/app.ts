@@ -124,21 +124,21 @@ export const entities: Record<string, EntityConfig> = {
 export const workflows: WorkflowConfig[] = [
   {
     slug: "record-match",
-    title: "Golden Record Matcher",
+    title: "Draft: Golden Record Matcher",
     description: "Decide if two provider records describe the same practitioner.",
     prompt: "You are a provider-data steward. Decide whether the described records match, weighing NPI, name similarity, addresses, taxonomy.",
     fields: ["recordA", "recordB", "sharedSignals", "conflicts"],
   },
   {
     slug: "adequacy-review",
-    title: "Network Adequacy Reviewer",
+    title: "Draft: Network Adequacy Reviewer",
     description: "Assess time-and-distance adequacy for a county/specialty.",
-    prompt: "You are a network adequacy analyst. Evaluate time-and-distance results against CMS standards and recommend remediation.",
+    prompt: "Review supplied travel-time measurements and the documented standard. Do not claim to calculate routes, validate FHIR resources, or independently determine network compliance.",
     fields: ["county", "specialty", "timeMinutes", "standard"],
   },
   {
     slug: "attestation-draft",
-    title: "Directory Attestation Drafter",
+    title: "Draft: Directory Attestation Drafter",
     description: "Draft the CMS directory accuracy attestation.",
     prompt: "You are a compliance officer drafting a provider-directory accuracy attestation for CMS Medicare Plan Finder submission.",
     fields: ["period", "accuracySummary", "outreachSummary", "exceptions"],

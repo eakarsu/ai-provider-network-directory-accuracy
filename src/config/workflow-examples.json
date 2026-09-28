@@ -1,0 +1,98 @@
+{
+  "record-match": [
+    {
+      "id": "example-1",
+      "label": "Address change",
+      "values": {
+        "recordA": "Example provider A; synthetic NPI 0000000001; 10 Sample Street",
+        "recordB": "Example provider A; synthetic NPI 0000000001; 20 Sample Street",
+        "sharedSignals": "Same supplied name and synthetic identifier",
+        "conflicts": "Address differs; verify relocation dates independently."
+      }
+    },
+    {
+      "id": "example-2",
+      "label": "Name variation",
+      "values": {
+        "recordA": "Example Clinic, Suite 200; synthetic NPI 0000000002",
+        "recordB": "Example Clinic LLC, Ste 200; synthetic NPI 0000000002",
+        "sharedSignals": "Normalized address and identifier agree",
+        "conflicts": "Legal-name suffix differs; no external verification performed."
+      }
+    },
+    {
+      "id": "example-3",
+      "label": "Conflicting identifier",
+      "values": {
+        "recordA": "Example provider B; synthetic NPI 0000000003",
+        "recordB": "Example provider B; synthetic NPI 0000000004",
+        "sharedSignals": "Similar name and specialty",
+        "conflicts": "Identifiers differ; do not merge without reviewed source evidence."
+      }
+    }
+  ],
+  "adequacy-review": [
+    {
+      "id": "example-1",
+      "label": "Urban scenario",
+      "values": {
+        "county": "Example urban county",
+        "specialty": "Primary care",
+        "timeMinutes": "18, 22, 29; caller-supplied observations",
+        "standard": "Illustrative 30-minute planning threshold; not an authoritative standard."
+      }
+    },
+    {
+      "id": "example-2",
+      "label": "Rural scenario",
+      "values": {
+        "county": "Example rural county",
+        "specialty": "Cardiology",
+        "timeMinutes": "35, 55, 70; caller-supplied observations",
+        "standard": "Illustrative 60-minute planning threshold; verify jurisdiction and plan rules."
+      }
+    },
+    {
+      "id": "example-3",
+      "label": "Missing routing data",
+      "values": {
+        "county": "Example service county",
+        "specialty": "Behavioral health",
+        "timeMinutes": "Unknown; member/provider coordinates and routing data missing",
+        "standard": "Applicable specialty and geographic standard not supplied."
+      }
+    }
+  ],
+  "attestation-draft": [
+    {
+      "id": "example-1",
+      "label": "Monthly outreach",
+      "values": {
+        "period": "2026-08",
+        "accuracySummary": "Example reviewed sample: 92 of 100 supplied records agree with reviewed sources.",
+        "outreachSummary": "80 completed outreach attempts; contact logs require source review.",
+        "exceptions": "Eight discrepant addresses; do not certify directory-wide accuracy."
+      }
+    },
+    {
+      "id": "example-2",
+      "label": "Unresolved exceptions",
+      "values": {
+        "period": "2026-09",
+        "accuracySummary": "Example sample includes unresolved specialty and location mismatches.",
+        "outreachSummary": "Two outreach attempts per unresolved record; confirmations pending.",
+        "exceptions": "Five inactive-location reports remain unverified."
+      }
+    },
+    {
+      "id": "example-3",
+      "label": "Quarterly refresh",
+      "values": {
+        "period": "2026 Q3",
+        "accuracySummary": "Fictional review packet includes dated source comparisons.",
+        "outreachSummary": "Owner-reviewed outreach logs supplied for the sampled cohort.",
+        "exceptions": "Network adequacy and FHIR conformance are separate uncompleted checks."
+      }
+    }
+  ]
+}

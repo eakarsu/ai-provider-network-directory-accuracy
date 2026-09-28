@@ -1,0 +1,536 @@
+{
+  "Provider": {
+    "name": "Provider",
+    "fields": [
+      {
+        "name": "fullName",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "npi",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "specialty",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "taxonomy",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "lastVerifiedAt",
+        "kind": "date",
+        "required": false
+      }
+    ]
+  },
+  "PracticeLocation": {
+    "name": "PracticeLocation",
+    "fields": [
+      {
+        "name": "name",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "addressLine",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "city",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "state",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "phone",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "acceptingPatients",
+        "kind": "boolean",
+        "required": true
+      },
+      {
+        "name": "providerId",
+        "kind": "string",
+        "required": false,
+        "relation": "Provider"
+      }
+    ],
+    "parent": {
+      "field": "providerId",
+      "entity": "Provider"
+    }
+  },
+  "CredentialRecord": {
+    "name": "CredentialRecord",
+    "fields": [
+      {
+        "name": "kind",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "issuer",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "number",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "expiresAt",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "name": "verifiedAt",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "name": "providerId",
+        "kind": "string",
+        "required": false,
+        "relation": "Provider"
+      }
+    ],
+    "parent": {
+      "field": "providerId",
+      "entity": "Provider"
+    }
+  },
+  "RosterFile": {
+    "name": "RosterFile",
+    "fields": [
+      {
+        "name": "delegate",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "fileName",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "fileRows",
+        "kind": "number",
+        "required": true,
+        "integer": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "receivedAt",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "name": "frequency",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "providerId",
+        "kind": "string",
+        "required": false,
+        "relation": "Provider"
+      }
+    ],
+    "parent": {
+      "field": "providerId",
+      "entity": "Provider"
+    }
+  },
+  "FhirValidation": {
+    "name": "FhirValidation",
+    "fields": [
+      {
+        "name": "resourceType",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "profile",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "result",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "errorDetail",
+        "kind": "string",
+        "required": false
+      },
+      {
+        "name": "validatedAt",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "name": "endpoint",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "providerId",
+        "kind": "string",
+        "required": false,
+        "relation": "Provider"
+      }
+    ],
+    "parent": {
+      "field": "providerId",
+      "entity": "Provider"
+    }
+  },
+  "AdequacyMeasure": {
+    "name": "AdequacyMeasure",
+    "fields": [
+      {
+        "name": "county",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "specialty",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "timeMinutes",
+        "kind": "number",
+        "required": true,
+        "min": 0
+      },
+      {
+        "name": "distanceMiles",
+        "kind": "number",
+        "required": true
+      },
+      {
+        "name": "standard",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "result",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "providerId",
+        "kind": "string",
+        "required": false,
+        "relation": "Provider"
+      }
+    ],
+    "parent": {
+      "field": "providerId",
+      "entity": "Provider"
+    }
+  },
+  "OutreachCampaign": {
+    "name": "OutreachCampaign",
+    "fields": [
+      {
+        "name": "name",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "channel",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "targetCount",
+        "kind": "number",
+        "required": true,
+        "integer": true,
+        "min": 0
+      },
+      {
+        "name": "responded",
+        "kind": "number",
+        "required": true,
+        "integer": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "launchedAt",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "name": "providerId",
+        "kind": "string",
+        "required": false,
+        "relation": "Provider"
+      }
+    ],
+    "parent": {
+      "field": "providerId",
+      "entity": "Provider"
+    }
+  },
+  "CorrectionRequest": {
+    "name": "CorrectionRequest",
+    "fields": [
+      {
+        "name": "field",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "reportedValue",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "currentValue",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "source",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "createdOn",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "name": "providerId",
+        "kind": "string",
+        "required": false,
+        "relation": "Provider"
+      }
+    ],
+    "parent": {
+      "field": "providerId",
+      "entity": "Provider"
+    }
+  },
+  "DirectoryAttestation": {
+    "name": "DirectoryAttestation",
+    "fields": [
+      {
+        "name": "period",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "attester",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "scope",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "signedAt",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "name": "notes",
+        "kind": "string",
+        "required": false
+      },
+      {
+        "name": "providerId",
+        "kind": "string",
+        "required": false,
+        "relation": "Provider"
+      }
+    ],
+    "parent": {
+      "field": "providerId",
+      "entity": "Provider"
+    }
+  },
+  "DirectorySnapshot": {
+    "name": "DirectorySnapshot",
+    "fields": [
+      {
+        "name": "snapshotDate",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "listedRecords",
+        "kind": "number",
+        "required": true,
+        "integer": true
+      },
+      {
+        "name": "accuracyIssues",
+        "kind": "number",
+        "required": true,
+        "integer": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "region",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "providerId",
+        "kind": "string",
+        "required": false,
+        "relation": "Provider"
+      }
+    ],
+    "parent": {
+      "field": "providerId",
+      "entity": "Provider"
+    }
+  },
+  "PlanFinderSubmission": {
+    "name": "PlanFinderSubmission",
+    "fields": [
+      {
+        "name": "submissionId",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "period",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "submittedAt",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "name": "cmsAck",
+        "kind": "string",
+        "required": false
+      },
+      {
+        "name": "recordsCount",
+        "kind": "number",
+        "required": true,
+        "integer": true,
+        "min": 0
+      },
+      {
+        "name": "providerId",
+        "kind": "string",
+        "required": false,
+        "relation": "Provider"
+      }
+    ],
+    "parent": {
+      "field": "providerId",
+      "entity": "Provider"
+    }
+  },
+  "NetworkContract": {
+    "name": "NetworkContract",
+    "fields": [
+      {
+        "name": "payer",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "contractNumber",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "effective",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "expiresAt",
+        "kind": "date",
+        "required": false
+      },
+      {
+        "name": "status",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "networkTier",
+        "kind": "string",
+        "required": true
+      },
+      {
+        "name": "providerId",
+        "kind": "string",
+        "required": false,
+        "relation": "Provider"
+      }
+    ],
+    "parent": {
+      "field": "providerId",
+      "entity": "Provider"
+    }
+  }
+}
